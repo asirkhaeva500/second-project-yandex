@@ -23,16 +23,25 @@ func (t *Training) Parse(datastring string) (err error) {
 	if len(parts) != 3 {
 		return errors.New("expected 3 parts")
 	}
+
 	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
 		return err
 	}
-	t.Steps = steps
-	t.TrainingType = parts[1]
+	if steps <= 0 {
+		return errors.New("steps is not valid")
+	}
+
 	duration, err := time.ParseDuration(parts[2])
 	if err != nil {
 		return err
 	}
+	if duration <= 0 {
+		return errors.New("duration is not valid")
+	}
+
+	t.Steps = steps
+	t.TrainingType = parts[1]
 	t.Duration = duration
 
 	return nil
@@ -61,7 +70,7 @@ func (t Training) ActionInfo() (string, error) {
 	}
 
 	result := fmt.Sprintf(
-		"Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f",
+		"Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n",
 		t.TrainingType,
 		t.Duration.Hours(),
 		distance,

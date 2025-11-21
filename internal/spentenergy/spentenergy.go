@@ -14,7 +14,7 @@ const (
 )
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	if steps < 0 {
+	if steps <= 0 {
 		return 0, errors.New("steps is not valid")
 	}
 	if weight <= 0 {
@@ -38,7 +38,7 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 }
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	if steps < 0 {
+	if steps <= 0 {
 		return 0, errors.New("steps is not valid")
 	}
 	if weight <= 0 {
@@ -61,7 +61,7 @@ func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 		return 0
 	}
 
-	if steps < 0 {
+	if steps <= 0 {
 		return 0
 	}
 
